@@ -1,0 +1,54 @@
+<html><head>
+<title>Sino local times</title>
+<link rel="stylesheet" type="text/css" href="theme.css">
+
+<script>
+var a = new Date();
+var timings1 = [60, 450, 720, 1170, 1350];
+var timings2 = [90, 150, 510, 720, 1050, 1230, 1410];
+
+
+for (var i = 0; i < 5; i++) {
+	timings1[i] = (timings1[i] + 14400 - 540 - a.getTimezoneOffset()) % 1440;
+}
+timings1.sort(function(a, b){return a - b});
+
+for (var i = 0; i < 7; i++) {
+	timings2[i] = (timings2[i] + 14400 - 540 - a.getTimezoneOffset()) % 1440;
+}
+timings2.sort(function(a, b){return a - b});
+
+</script>
+</head><body>
+<div id="line1"></div>
+<div id="line2"></div>
+<div id="line3"></div>
+<h1>Fodder:</h1><ul id="line01"></ul>
+<h1>Raid:</h1><ul id="line02"></ul>
+
+<script>
+var fodderstring = "";
+for (var i = 0; i < 5; i++) {
+	var time1 = Math.floor(timings1[i]/60);
+	var time2 = timings1[i]%60;
+	
+	if (time1 < 10) { time1 = "0" + time1;}
+	if (time2 < 10) { time2 = "0" + time2;}
+	
+    fodderstring += "<li>" + String(time1) + ":" + String(time2) + "</li>";
+}
+document.getElementById('line01').innerHTML = fodderstring;
+
+var raidstring = "";
+for (var i = 0; i < 7; i++) {
+	var time1 = Math.floor(timings2[i]/60);
+	var time2 = timings2[i]%60;
+	
+	if (time1 < 10) { time1 = "0" + time1;}
+	if (time2 < 10) { time2 = "0" + time2;}
+	
+    raidstring += "<li>" + String(time1) + ":" + String(time2) + "</li>";
+}
+document.getElementById('line02').innerHTML = raidstring;
+
+</script></body></html>
